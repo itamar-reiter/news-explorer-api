@@ -4,6 +4,6 @@ const { saveArticleValidator, idValidator } = require('../middleware/celebrateVa
 
 articlesRouter.get('/articles', getArticles);
 articlesRouter.post('/articles', saveArticleValidator, saveArticle);
-articlesRouter.delete('/article/:articleId', idValidator, deleteArticle);
+articlesRouter.delete('/articles/:articleId', idValidator, deleteArticle);
 
 module.exports = articlesRouter;
