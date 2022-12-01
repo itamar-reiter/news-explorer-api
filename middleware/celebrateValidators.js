@@ -28,6 +28,7 @@ const saveArticleValidator = celebrate({
     source: Joi.string().required(),
     link: Joi.string().required().pattern(urlRegex),
     image: Joi.string().required().pattern(urlRegex),
+    owner: Joi.string().alphanum().length(24).required(),
   }),
 });
 
