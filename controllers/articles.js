@@ -9,8 +9,7 @@ const NotFoundError = require('../utils/errors/NotFoundError');
 
 const getArticles = (req, res, next) => Articles.find({})
   .then((articles) => {
-    console.log(articles);
-    Object.keys(articles).forEach((article) => {
+    Object.values(articles).forEach((article) => {
       if (article._doc.owner) {
         delete article._doc.owner;
       }
@@ -21,7 +20,7 @@ const getArticles = (req, res, next) => Articles.find({})
 
 const saveArticle = (req, res, next) => {
   const {
-    keyword, title, text, date, source, link, image,
+    keyword, title, text, date, source, link, image, owner
   } = req.body;
   Articles.create({
     keyword,
@@ -31,6 +30,7 @@ const saveArticle = (req, res, next) => {
     source,
     link,
     image,
+    owner
   })
     .then((article) => {
       delete article._doc.owner;
