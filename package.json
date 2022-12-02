@@ -4,9 +4,8 @@
   "description": "back-end for news explorer",
   "main": "app.js",
   "scripts": {
-    "start": "if-env NODE_ENV=production ?? npm run start:prod || npm run start:dev",
-    "start:dev": "nodemon app.js",
-    "start:prod": "node .",
+    "dev": "nodemon app.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "npx eslint ."
   },
@@ -26,7 +25,6 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
     "express-winston": "^4.2.0",
-    "if-env": "^1.0.4",
     "joi-objectid": "^4.0.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.4.0",
