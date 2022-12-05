@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const UnauthenticatedError = require('../utils/errors/UnauthenticatedError');

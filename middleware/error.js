@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 module.exports = (err, req, res, next) => {
   console.log('in error middleware');
   console.log(err.message);

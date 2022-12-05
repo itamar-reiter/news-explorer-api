@@ -1,21 +1,19 @@
-/* eslint-disable no-console */
 const { errors } = require('celebrate');
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const authMiddleware = require('./middleware/auth');
 const errorMiddleware = require('./middleware/error');
-const usersRouter = require('./routes/users');
-const articlesRouter = require('./routes/article');
-const errorRouter = require('./routes/userError');
 const { login, createUser } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 const { loginValidator, registerValidator } = require('./middleware/celebrateValidators');
+const indexRouter = require('./routes');
 // listen to port 3000
 const { PORT = 3000 } = process.env;
 
-mongoose.connect('mongodb://localhost:27017/aroundb', {
+mongoose.connect(process.env.DATABASE_ADDRESS, {
   useNewUrlParser: true,
   // useCreateIndex: true,
   // useFindAndModify: false
@@ -26,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(cors());
-
+app.use(helmet());
 app.use(requestLogger);
 
 // crash test
@@ -36,23 +34,18 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-// login
-app.post('/signin', loginValidator, login);
-
 // signup
 app.post('/signup', registerValidator, createUser);
+
+// login
+app.post('/signin', loginValidator, login);
 
 // use auth middleware only for protected routes
 app.use(authMiddleware);
 
 // TODO prevent user from editing users/cards - section
 
-// routes for users and cards
-app.use('/', usersRouter);
-app.use('/', articlesRouter);
-
-// cards route for the specific user
-app.use('/', errorRouter);
+app.use('/', indexRouter);
 app.use(errorLogger);
 app.use(errors());
 app.use(errorMiddleware);

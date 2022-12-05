@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-param-reassign */
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Users = require('../models/user');

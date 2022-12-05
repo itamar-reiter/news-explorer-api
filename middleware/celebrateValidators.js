@@ -6,16 +6,16 @@ const mongooseDefaultIdValidator = Joi.string().alphanum().length(24);
 
 const loginValidator = celebrate({
   body: Joi.object().keys({
-    email: Joi.string().required(),
+    email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
 });
 
 const registerValidator = celebrate({
   body: Joi.object().keys({
-    email: Joi.string().required(),
+    email: Joi.string().required().email(),
     password: Joi.string().required(),
-    name: Joi.string().min(2).max(30),
+    name: Joi.string().min(2).max(30).required(),
   }),
 });
 
@@ -28,7 +28,6 @@ const saveArticleValidator = celebrate({
     source: Joi.string().required(),
     link: Joi.string().required().pattern(urlRegex),
     image: Joi.string().required().pattern(urlRegex),
-    owner: Joi.string().alphanum().length(24).required(),
   }),
 });
 

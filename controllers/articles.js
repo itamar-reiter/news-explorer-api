@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-param-reassign */
 const Articles = require('../models/article');
 const { NOT_FOUND_ERROR_CODE } = require('../utils/errors/errorCodes');
 const UnauthorizedError = require('../utils/errors/UnauthorizedError');
@@ -7,20 +5,19 @@ const InvalidDataError = require('../utils/errors/InvalidDataError');
 const ServerError = require('../utils/errors/ServerError');
 const NotFoundError = require('../utils/errors/NotFoundError');
 
-const getArticles = (req, res, next) => Articles.find({})
+const getArticles = (req, res, next) => Articles.find({ owner: req.user._id })
   .then((articles) => {
     Object.values(articles).forEach((article) => {
-      if (article._doc.owner) {
-        delete article._doc.owner;
-      }
+      delete article._doc.owner;
     });
     res.status(200).send(articles);
   })
   .catch(next);
 
 const saveArticle = (req, res, next) => {
+  const owner = req.user._id;
   const {
-    keyword, title, text, date, source, link, image, owner
+    keyword, title, text, date, source, link, image,
   } = req.body;
   Articles.create({
     keyword,
@@ -30,7 +27,7 @@ const saveArticle = (req, res, next) => {
     source,
     link,
     image,
-    owner
+    owner,
   })
     .then((article) => {
       delete article._doc.owner;
