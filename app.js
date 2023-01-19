@@ -41,7 +41,7 @@ app.post('/signup', registerValidator, createUser);
 app.post('/signin', loginValidator, login);
 
 // use auth middleware only for protected routes
-app.use(authMiddleware);
+//app.use(authMiddleware);
 
 // TODO prevent user from editing users/cards - section
 
