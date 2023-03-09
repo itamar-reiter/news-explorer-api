@@ -43,6 +43,7 @@ const getUserData = (req, res, next) => {
 };
 
 const createUser = (req, res, next) => {
+  console.log('in create user controller');
   const { email, password, name } = req.body;
   bcrypt.hash(password, 10)
     .then((hash) => Users.create({
