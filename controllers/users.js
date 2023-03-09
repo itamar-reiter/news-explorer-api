@@ -50,6 +50,7 @@ const createUser = (req, res, next) => {
     }))
     .then((user) => {
       delete user._doc.password;
+      console.log(user._doc);
       res.status(200).send(user);
     })
     .catch((error) => {
