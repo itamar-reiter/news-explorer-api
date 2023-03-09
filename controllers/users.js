@@ -43,7 +43,6 @@ const getUserData = (req, res, next) => {
 };
 
 const createUser = (req, res, next) => {
-  console.log('in create user controller');
   const { email, password, name } = req.body;
   bcrypt.hash(password, 10)
     .then((hash) => Users.create({
@@ -51,7 +50,6 @@ const createUser = (req, res, next) => {
     }))
     .then((user) => {
       delete user._doc.password;
-      console.log(user._doc);
       res.status(200).send(user);
     })
     .catch((error) => {
