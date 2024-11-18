@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const { urlRegex } = require('../utils/regex');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const UnauthenticatedError = require('../utils/errors/UnauthenticatedError');
@@ -28,10 +29,9 @@ const userSchema = new Schema({
   },
   image: {
     type: String,
-    required: true,
     validate: {
       validator(v) {
-        return urlRegex.test(v);
+        return !v || urlRegex.test(v);
       },
       message: (props) => `${props.value} is not a valid image url.`,
     },
