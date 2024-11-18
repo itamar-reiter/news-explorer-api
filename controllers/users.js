@@ -43,10 +43,10 @@ const getUserData = (req, res, next) => {
 };
 
 const createUser = (req, res, next) => {
-  const { email, password, name } = req.body;
+  const { email, password, name, image } = req.body;
   bcrypt.hash(password, 10)
     .then((hash) => Users.create({
-      email, password: hash, name,
+      email, password: hash, name, image
     }))
     .then((user) => {
       delete user._doc.password;

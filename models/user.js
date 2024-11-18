@@ -26,6 +26,16 @@ const userSchema = new Schema({
     required: true,
     select: false,
   },
+  image: {
+    type: String,
+    required: true,
+    validate: {
+      validator(v) {
+        return urlRegex.test(v);
+      },
+      message: (props) => `${props.value} is not a valid image url.`,
+    },
+  },
 });
 
 userSchema.statics.findUserByCredentials = function findUserByCredentials(email, password) {
