@@ -16,7 +16,7 @@ const registerValidator = celebrate({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
     name: Joi.string().min(2).max(30).required(),
-    image: Joi.string().min(2)
+    image: Joi.string().min(2).optional().allow(null, '')
   }),
 });
 
