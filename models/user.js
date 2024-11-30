@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const { urlRegex } = require('../utils/regex');
+const { urlRegex, prefferencesRegex } = require('../utils/regex');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const UnauthenticatedError = require('../utils/errors/UnauthenticatedError');
@@ -36,6 +36,15 @@ const userSchema = new Schema({
       message: (props) => `${props.value} is not a valid image url.`,
     },
   },
+  prefferedSubjects: [{
+    type: String,
+    validate: {
+      validator(v) {
+        return !v || prefferencesRegex.test(v);
+      },
+      message: (props) => `${props.value} is not a valid prreference key.`,
+    },
+  }],
 });
 
 userSchema.statics.findUserByCredentials = function findUserByCredentials(email, password) {

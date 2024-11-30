@@ -1,5 +1,5 @@
 const { celebrate, Joi } = require('celebrate');
-const { urlRegex } = require('../utils/regex');
+const { urlRegex, prefferencesRegex } = require('../utils/regex');
 
 // mongoose default id
 const mongooseDefaultIdValidator = Joi.string().alphanum().length(24);
@@ -10,6 +10,12 @@ const loginValidator = celebrate({
     password: Joi.string().required(),
   }),
 });
+
+const prefferencesValidator = celebrate({
+  body: Joi.object().keys({
+    keyword: Joi.string().required().pattern(prefferencesRegex),
+  }),
+})
 
 const registerValidator = celebrate({
   body: Joi.object().keys({
@@ -43,4 +49,5 @@ module.exports = {
   loginValidator,
   saveArticleValidator,
   idValidator,
+  prefferencesValidator
 };
